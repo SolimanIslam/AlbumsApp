@@ -1,70 +1,128 @@
-# Getting Started with Create React App
+# Albums
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Albums is a React application that displays a list of users, their albums, and photos within those albums. The app uses a JSON server to store and fetch data, with state management handled by Redux and @reduxjs/toolkit. This README provides an overview of the project, including setup instructions, package usage, and a detailed description of the application's functionality.
 
-## Available Scripts
+## Table of Contents
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Setup Instructions](#setup-instructions)
+- [API Endpoints](#api-endpoints)
+- [State Management](#state-management)
+- [Usage](#usage)
+- [Packages](#packages)
+- [Contributing](#contributing)
+- [License](#license)
 
-In the project directory, you can run:
+## Features
+- Display a list of users.
+- Display a list of albums for each user.
+- Display a list of photos for each album.
+- Fetch and manage data using JSON server and Redux.
+- Lazy loading of albums and photos.
+- Error handling and loading states.
 
-### `npm start`
+## Setup Instructions
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/SolimanIslam/AlbumsApp.git
+   cd albums-app
+2. Install dependencies:
+   ```bash
+   npm install
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3. Start the JSON server:
+   ```bash
+   npx json-server --watch db.json --port 3005
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+4. Start the React application:
+   ```bash
+   npm start
 
-### `npm test`
+# API Endpoints
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The following endpoints are used to manage users, albums, and photos:
 
-### `npm run build`
+## Users
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **GET:** `/users`
+- **POST:** `/users`
+  - JSON Body:
+    ```json
+    {
+      "id": "acdd",
+      "name": "Constance Emmerich"
+    }
+    ```
+- **DELETE:** `/users/:id`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Albums
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **GET:** `/albums?userId=:userId`
+- **POST:** `/albums`
+  - JSON Body:
+    ```json
+    {
+      "id": "a776",
+      "title": "Refined Soft Fish",
+      "userId": "acdd"
+    }
+    ```
+- **DELETE:** `/albums/:id`
 
-### `npm run eject`
+## Photos
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **GET:** `/photos?albumId=:albumId`
+- **POST:** `/photos`
+  - JSON Body:
+    ```json
+    {
+      "id": "3431",
+      "url": "https://loremflickr.com/150/150?lock=3022692397613056",
+      "albumId": "a776"
+    }
+    ```
+- **DELETE:** `/photos/:id`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# State Management
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The application uses Redux for state management, leveraging `@reduxjs/toolkit` for streamlined setup and maintenance.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Users
 
-## Learn More
+- Managed with async thunks for fetching and manipulating data.
+- `userSlice.js` handles user-related state.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Albums and Photos
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Managed with `createApi` from `@reduxjs/toolkit/query/react` for efficient data fetching and caching.
+- `albumApi.js` and `photoApi.js` handle albums and photos respectively.
 
-### Code Splitting
+# Loading and Error States
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Fine-grained control over component state using `isLoading`, `error`, and `data` properties from API requests.
 
-### Analyzing the Bundle Size
+# Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- The app displays users on the initial load.
+- Clicking on a user fetches and displays their albums.
+- Clicking on an album fetches and displays its photos.
+- The app uses lazy fetching, only loading albums or photos when their parent entity is clicked.
 
-### Making a Progressive Web App
+# Packages
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- `@faker-js/faker`: Generates random names, albums, and photo URLs.
+- `@reduxjs/toolkit`: Manages global state and API interactions.
+- `axios`: Handles HTTP requests.
+- `classnames`: Manages CSS class names conditionally.
+- `json-server`: Mocks REST API for development.
+- `react`: Core library for building user interfaces.
+- `react-dom`: DOM bindings for React.
+- `react-icons`: Provides icons.
+- `react-redux`: Official React bindings for Redux.
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+https://github.com/SolimanIslam/AlbumsApp/assets/136899518/b10a4542-56ec-4185-b827-af7f5e81496c
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
