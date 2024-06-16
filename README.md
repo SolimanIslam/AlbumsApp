@@ -1,6 +1,6 @@
 # Albums
 
-Albums is a React application that displays a list of users, their albums, and photos within those albums. The app uses a JSON server to store and fetch data, with state management handled by Redux and @reduxjs/toolkit. This README provides an overview of the project, including setup instructions, package usage, and a detailed description of the application's functionality.
+Albums is a React application that displays a list of users, each user's albums, and each album's photos. The app's state is managed with Redux, and data is fetched from a JSON server. The application employs lazy fetching, meaning data for albums and photos are only fetched when a user or album is clicked.
 
 ## Table of Contents
 - [Features](#features)
